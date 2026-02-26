@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: timescale/timescaledb:latest-pg14
+    container_name: qfx_postgres
+    environment:
+      POSTGRES_USER: quant_user
+      POSTGRES_PASSWORD: supersecurepassword123
+      POSTGRES_DB: qfx_marketdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: always
+
+  mysql:
+    image: mysql:8.0
+    container_name: qfx_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword123
+      MYSQL_DATABASE: qfx_trading
+      MYSQL_USER: api_user
+      MYSQL_PASSWORD: api_password123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysqldata:/var/lib/mysql
+    restart: always
+
+  redis:
+    image: redis:alpine
+    container_name: qfx_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    restart: always
+
+volumes:
+  pgdata:
+  mysqldata:
+  redisdata:
