@@ -1,0 +1,27 @@
+-- Table: ohlcv_data
+CREATE TABLE ohlcv_data (
+    id SERIAL PRIMARY KEY,
+    symbol VARCHAR(10) NOT NULL,
+    timeframe VARCHAR(5) NOT NULL,
+    timestamp TIMESTAMPTZ NOT NULL,
+    open NUMERIC(10, 5),
+    high NUMERIC(10, 5),
+    low NUMERIC(10, 5),
+    close NUMERIC(10, 5),
+    tick_volume BIGINT,
+    spread INTEGER,
+    UNIQUE(symbol, timeframe, timestamp)
+);
+CREATE INDEX idx_ohlcv_symbol_time ON ohlcv_data(symbol, timestamp DESC);
+
+-- Table: smart_money_concepts (SMC & Liquidity)
+CREATE TABLE market_structure (
+    id SERIAL PRIMARY KEY,
+    symbol VARCHAR(10),
+    timestamp TIMESTAMPTZ,
+    type VARCHAR(20), -- 'BOS' (Break of Structure), 'CHoCH', 'Liquidity Sweep'
+    price_level NUMERIC(10, 5),
+    is_mitigated BOOLEAN DEFAULT FALSE
+);
+
+
