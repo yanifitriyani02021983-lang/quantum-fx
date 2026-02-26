@@ -1,6 +1,11 @@
 📈 Quantum-FX: AI-Driven Web Trading System
+
+
 Sistem trading forex berbasis web kelas institusional dengan integrasi MetaTrader 5, ditenagai oleh Multi-Model AI (LSTM+Attention, Transformer, RL) dan sistem Manajemen Risiko tingkat lanjut.
+
+
 📂 Struktur Folder Project (GitHub-Ready)
+
 quantum-fx/
 │
 ├── frontend/                  # Web Dashboard (React.js / Next.js)
@@ -34,17 +39,31 @@ quantum-fx/
 └── README.md                  # Dokumentasi ini
 
 
+
+
 🏗️ Arsitektur Sistem Lengkap
 Data Ingestion (MT5 -> DB): Terminal MT5 mengirim tick data dan OHLCV ke sistem. Redis menampung data realtime, sementara PostgreSQL (idealnya dengan ekstensi TimescaleDB) menyimpan histori panjang.
 Feature Engineering: Cron job mengkalkulasi indikator teknikal konvensional (EMA, MACD, dll) dan Smart Money Concept (Fair Value Gaps, Liquidity Sweeps).
+
+
 AI Inference (Realtime): Data masuk ke model Ensemble (LSTM + XGBoost). Model memprediksi arah (Direction), sementara AI pendukung memprediksi Volatilitas (untuk set TP/SL dinamis).
+
+
 Risk & Crisis Guard: Sebelum eksekusi, sinyal melewati Crisis Detector (Isolation Forest). Jika ada anomali tinggi (misal: rilis NFP/CPI), sistem beralih ke mode protektif atau halt trading. Sinyal juga divalidasi oleh perhitungan Risk of Ruin.
+
+
 Execution: Sinyal valid dikirim kembali ke MT5 via Python MetaTrader5 library. Frontend React menerima status update via WebSockets.
+
+
 Continuous Learning: Setiap akhir pekan (Sabtu/Minggu), pipeline Retraining aktif otomatis untuk fine-tuning bobot model dengan data seminggu terakhir agar AI tetap adaptif.
+
+
 🗄️ Desain & Skema Database (SQL)
 Sistem menggunakan arsitektur Polyglot Persistence untuk optimalisasi performa.
+
 1. PostgreSQL (Time-Series Data & Market Data)
 Digunakan untuk menyimpan data historis candlestick dan tick yang berat.
+
 -- Table: ohlcv_data
 CREATE TABLE ohlcv_data (
     id SERIAL PRIMARY KEY,
@@ -73,6 +92,7 @@ CREATE TABLE market_structure (
 
 
 2. MySQL (Relational Data, Users, Trading Logs)
+
 Digunakan untuk manajemen user web, konfigurasi risk, dan pencatatan trade untuk akuntansi.
 -- Table: users
 CREATE TABLE users (
