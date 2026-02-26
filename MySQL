@@ -1,0 +1,38 @@
+-- Table: users
+CREATE TABLE users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    role ENUM('admin', 'trader', 'viewer') DEFAULT 'trader',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table: trade_history
+CREATE TABLE trade_history (
+    ticket_id BIGINT PRIMARY KEY,
+    user_id INT,
+    symbol VARCHAR(10),
+    order_type VARCHAR(10), -- BUY / SELL
+    volume DECIMAL(10, 2),
+    open_price DECIMAL(10, 5),
+    close_price DECIMAL(10, 5),
+    sl DECIMAL(10, 5),
+    tp DECIMAL(10, 5),
+    profit DECIMAL(10, 2),
+    ai_model_used VARCHAR(50), -- Model mana yang memberi sinyal
+    open_time DATETIME,
+    close_time DATETIME,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+-- Table: ai_performance_metrics
+CREATE TABLE ai_metrics (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    model_name VARCHAR(50),
+    week_start DATE,
+    win_rate DECIMAL(5, 2),
+    profit_factor DECIMAL(5, 2),
+    max_drawdown DECIMAL(5, 2)
+);
+
+
