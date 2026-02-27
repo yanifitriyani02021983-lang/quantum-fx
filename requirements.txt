@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+torch
+MetaTrader5
+pandas
+numpy
+scikit-learn
+SQLAlchemy
+pydantic
+asyncpg
+requests
+loguru
+joblib
