@@ -8,8 +8,8 @@ setup(
     entry_points={
         'console_scripts': [],  # Add console scripts if needed
     },
-    author='Your Name',
-    author_email='your_email@example.com',
+    author='yaniFitriyani',
+    author_email='yanifitriyani02021983@gmail.com',
     description='A package for quantum FX calculations',
     license='MIT',
     url='https://github.com/yanifitriyani02021983-lang/quantum-fx',
